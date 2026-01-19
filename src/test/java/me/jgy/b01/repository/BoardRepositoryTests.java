@@ -2,6 +2,7 @@ package me.jgy.b01.repository;
 
 import lombok.extern.log4j.Log4j2;
 import me.jgy.b01.controller.domain.Board;
+import me.jgy.b01.controller.domain.BoardImage;
 import me.jgy.b01.controller.repository.BoardRepository;
 import me.jgy.b01.dto.BoardListReplyCountDTO;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -137,5 +139,36 @@ public class BoardRepositoryTests {
         log.info(result.hasPrevious() + ": " + result.hasNext());
 
         result.getContent().forEach(board -> log.info(board));
+    }
+
+    @Test
+    public void testInsertWithImages() {
+
+        Board board = Board.builder()
+                .title("Image Test")
+                .content("첨부 파일 테스트")
+                .writer("tester")
+                .build();
+
+        for (int i = 0; i < 3; i++) {
+            board.addImage(UUID.randomUUID().toString(), "file" + i + ".jpg");
+        }
+
+        boardRepository.save(board);
+    }
+
+    @Test
+    public void testReadWithImages() {
+
+        // 반드시 존재하는 bno 확인
+        Optional<Board> result = boardRepository.findByIdWithImages(1L);
+
+        Board board = result.orElseThrow();
+
+        log.info(board);
+        log.info("-------------------------");
+        for (BoardImage boardImage : board.getImageSet()) {
+            log.info(boardImage);
+        }
     }
 }
