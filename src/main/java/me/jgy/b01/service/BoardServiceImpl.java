@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import me.jgy.b01.controller.domain.Board;
 import me.jgy.b01.controller.repository.BoardRepository;
-import me.jgy.b01.dto.BoardDTO;
-import me.jgy.b01.dto.BoardListReplyCountDTO;
-import me.jgy.b01.dto.PageRequestDTO;
-import me.jgy.b01.dto.PageResponseDTO;
+import me.jgy.b01.dto.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -94,5 +91,10 @@ public class BoardServiceImpl implements BoardService {
                 .dtoList(result.getContent())
                 .total((int) result.getTotalElements())
                 .build();
+    }
+
+    @Override
+    public PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO) {
+        return null;
     }
 }

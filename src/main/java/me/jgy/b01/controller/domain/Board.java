@@ -2,6 +2,7 @@ package me.jgy.b01.controller.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,8 +35,10 @@ public class Board extends BaseEntity {
 
     @OneToMany(mappedBy = "board",
             cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY) // BoardImage의 board 변수
+            fetch = FetchType.LAZY,
+            orphanRemoval = true) // BoardImage의 board 변수
     @Builder.Default
+    @BatchSize(size = 20)
     private Set<BoardImage> imageSet = new HashSet<>();
 
     public void addImage(String uuid, String fileName) {

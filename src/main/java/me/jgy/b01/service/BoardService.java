@@ -1,9 +1,6 @@
 package me.jgy.b01.service;
 
-import me.jgy.b01.dto.BoardDTO;
-import me.jgy.b01.dto.BoardListReplyCountDTO;
-import me.jgy.b01.dto.PageRequestDTO;
-import me.jgy.b01.dto.PageResponseDTO;
+import me.jgy.b01.dto.*;
 
 public interface BoardService {
 
@@ -13,4 +10,6 @@ public interface BoardService {
     void remove(Long bno);
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
     PageResponseDTO<BoardListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO);
+    // 게시글의 이미지와 댓글의 숫자까지 처리
+    PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO);
 }
