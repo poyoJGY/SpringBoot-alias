@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import me.jgy.b01.dto.BoardDTO;
-import me.jgy.b01.dto.BoardListReplyCountDTO;
-import me.jgy.b01.dto.PageRequestDTO;
-import me.jgy.b01.dto.PageResponseDTO;
+import me.jgy.b01.dto.*;
 import me.jgy.b01.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +26,8 @@ public class BoardController {
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
 
-        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+//        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
 
         log.info(responseDTO);
 
