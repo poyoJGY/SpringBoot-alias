@@ -72,6 +72,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "readGET, modifyGET")
     @GetMapping({"/read", "/modify"})
     public void read(Long bno, PageRequestDTO pageRequestDTO, Model model) {
@@ -83,6 +84,7 @@ public class BoardController {
         model.addAttribute("dto", boardDTO);
     }
 
+    @PreAuthorize("principal.username == #boardDTO.writer")
     @Operation(summary = "modifyPOST")
     @PostMapping("/modify")
     public String modify(PageRequestDTO pageRequestDTO,
@@ -113,6 +115,7 @@ public class BoardController {
         return "redirect:/board/read";
     }
 
+    @PreAuthorize("principal.username == #boardDTO.writer")
     @Operation(summary = "remove")
     @PostMapping("/remove")
     public String remove(BoardDTO boardDTO, RedirectAttributes redirectAttributes) {
